@@ -107,6 +107,8 @@ def stations():
     # return jsonified dictionary
     return jsonify(stations_dictionary)
 
+
+# tobs API route
 @app.route('/api/v1.0/tobs')
 def tobs():
     # create our session (link) from Python to the DB
@@ -130,6 +132,7 @@ def tobs():
     return jsonify(tobs_dictionary)  
 
 
+# min, max, avg temperatures for specified start/end range API route
 @app.route("/api/v1.0/<start>",defaults={"end":None})       
 @app.route("/api/v1.0/<start>/<end>")                       
 def start_end_dates(start,end):
@@ -156,13 +159,14 @@ def start_end_dates(start,end):
     session.close()
 
     # create dictionary to save results
-    temp_dictionary = {"from date":DMIN,
+    temperatures_dictionary = {"from date":DMIN,
                "to date":DMAX,
                "min temperature":TMIN,
                "max temperature":TMAX,
-               "avg temperature":TAVG}
+               "avg temperature":TAVG
+               }
     # return jsonified dictionary
-    return jsonify(temp_dictionary)
+    return jsonify(temperatures_dictionary)
 
 
 # run climate app
